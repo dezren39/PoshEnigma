@@ -40,7 +40,7 @@ Describe 'Invoke-EnigmaEngine' {
 				 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 				 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $true
     }
-    It 'Returns uniform characters when all input characters are uniform' {
+    It 'Outputs N of 1 key code with input of N of 1 key code and all positions set to 0' {
     	$g = "GGGGGGGGGGGG" |
     		Invoke-EnigmaEngine `
 			    -rotors @( `
@@ -50,5 +50,16 @@ Describe 'Invoke-EnigmaEngine' {
 			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' -position 0) `
 			 	-baseMap $(Invoke-EnigmaRotor -position 0)
 		$g.length -eq $g.split($g[0]).count - 1 | Should -be $true
+    }
+    It 'Outputs < N of 1 key code with input of N of 1 key code and all positions set to 5' {
+    	$g = "GGGGGGGGGGGG" |
+    		Invoke-EnigmaEngine `
+			    -rotors @( `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 5), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 5), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 5)) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' -position 5) `
+			 	-baseMap $(Invoke-EnigmaRotor -position 0)
+		$g.length -eq $g.split($g[0]).count - 1 | Should -be $false
     }
 }
