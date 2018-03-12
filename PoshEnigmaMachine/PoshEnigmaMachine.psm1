@@ -1,2 +1,2 @@
-Resolve-Path $PSScriptRoot\*.ps1 | 
+Resolve-Path $PSScriptRoot\*.ps1 |
     ForEach-Object { . $_.ProviderPath }
