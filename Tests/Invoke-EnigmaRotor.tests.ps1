@@ -5,7 +5,7 @@ Describe 'Invoke-EnigmaRotor' {
         Test-Path Function:\Invoke-EnigmaRotor | Should -be $true
     }
     It 'Returns an EnigmaRotor HashMap' {
-    	$x = Invoke-EnigmaRotor
+    	$x = Invoke-EnigmaRotor -position 10
     	$x.keys.length | Should -be 27
     	$x.position | Should -be 10
     	$x.currentPosition | Should -be 0
