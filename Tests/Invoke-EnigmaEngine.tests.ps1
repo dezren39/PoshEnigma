@@ -1,8 +1,8 @@
 ## Ensure the function is available
 Import-Module "$PSScriptRoot\..\PoshEnigmaMachine\PoshEnigmaMachine.psm1" -Force
-Describe 'Invoke-EnigmaSocket' {
+Describe 'Invoke-EnigmaEngine' {
     It 'Exists as a Function' {
-        Test-Path Function:\Invoke-EnigmaSocket | Should -be $true
+        Test-Path Function:\Invoke-EnigmaEngine | Should -be $true
     }
 
 }
