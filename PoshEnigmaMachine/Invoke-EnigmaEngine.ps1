@@ -7,22 +7,16 @@ function Invoke-EnigmaEngine {
         $reflector,
         $baseMap
     )
-    return $($message.ToCharArray() | % {
+    $($message.ToCharArray() | % {
     	$char = $_
-    	# $rotors | % {
-    		$char = $rotors[0].Keys[$basemap.Keys.IndexOf($char)]
-
-    	# $char = $reflector.Keys[$basemap.Keys.IndexOf($char)]
-    	# # [array]::reverse($rotors) | % {
-    	# 	$char = $rotors[0].Keys[$basemap.Keys.IndexOf($char)]
-    	# # }
-    	# 1
+    	$rotors | % {
+    		$char = $_.Keys[$basemap.Keys.IndexOf($char)]
+    	}
+    	$char = $reflector.Keys[$basemap.Keys.IndexOf($char)]
+    	[array]::reverse($rotors)
+    	$rotors | % {
+    		$char = $basemap.Keys[$_.Keys.IndexOf($char)]
+    	}
     	$char
-    	# 2
-    	# $rotors
-    	# 3
-    	# $rotors[0]
-    	# 4
-    	# $basemap
     }) -join ''
 }

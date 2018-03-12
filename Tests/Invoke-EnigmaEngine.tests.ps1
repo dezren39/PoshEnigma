@@ -5,12 +5,12 @@ Describe 'Invoke-EnigmaEngine' {
         Test-Path Function:\Invoke-EnigmaEngine | Should -be $true
     }
     It 'Takes Appropriate Inputs and returns a String.' {
-    		"HELLO" |  Invoke-EnigmaEngine `
+    		"HELLO" | Invoke-EnigmaEngine `
 			     -rotors @( `
 			     $(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
 			 $(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
 			 $(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
-			 -reflector $(Invoke-EnigmaRotor) `
+			 -reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 			 -baseMap $(Invoke-EnigmaRotor) | Should BeOfType [String] `
     }
     It 'Converts Values Entered' {
@@ -20,7 +20,7 @@ Describe 'Invoke-EnigmaEngine' {
 		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
 			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
 			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
-			 	-reflector $(Invoke-EnigmaRotor) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 			 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
     }
     It 'Is Commutative' {
@@ -30,14 +30,14 @@ Describe 'Invoke-EnigmaEngine' {
 		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
 			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
 			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
-			 	-reflector $(Invoke-EnigmaRotor) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 			 	-baseMap $(Invoke-EnigmaRotor)) |
 	    		Invoke-EnigmaEngine `
 				    -rotors @( `
 			    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
 				 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
 				 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
-				 	-reflector $(Invoke-EnigmaRotor) `
+				 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 				 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $true
     }
 }
