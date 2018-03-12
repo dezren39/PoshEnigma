@@ -5,21 +5,22 @@ Describe 'Invoke-EnigmaEngine' {
         Test-Path Function:\Invoke-EnigmaEngine | Should -be $true
     }
     It 'Takes Appropriate Inputs and returns a String.' {
-    	"Hello" |
-    		Invoke-EnigmaEngine -rotors @(
-    				$(Invoke-EnigmaRotor),
-					$(Invoke-EnigmaRotor),
-					$(Invoke-EnigmaRotor)
-					) -reflector Invoke-EnigmaRotor | Should BeOfType [String]
+    		"HELLO" |  Invoke-EnigmaEngine `
+			     -rotors @( `
+			     $(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
+			 $(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
+			 $(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
+			 -reflector $(Invoke-EnigmaRotor) `
+			 -baseMap $(Invoke-EnigmaRotor) | Should BeOfType [String] `
     }
     It 'Converts Values Entered' {
-    	"Hello" -eq $("Hello" |
+    	"HELLO" -eq $("HELLO" |
     		Invoke-EnigmaEngine `
-    			-rotors @(
-    				$(Invoke-EnigmaRotor),
-					$(Invoke-EnigmaRotor),
-					$(Invoke-EnigmaRotor)) `
-				-reflector $(Invoke-EnigmaRotor) `
-				-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
+			    -rotors @( `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
+			 	-reflector $(Invoke-EnigmaRotor) `
+			 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
     }
 }

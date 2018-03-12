@@ -7,5 +7,5 @@ function Invoke-EnigmaRotor {
         [int] $currentPosition = 0,
         [int] $counter = 0
     )
-    @{keys = $keymap.ToCharArray(); position = $position; currentPosition = $currentPosition; counter = $counter}
+    @{keys = $keymap; position = $position; currentPosition = $currentPosition; counter = $counter}
 }
