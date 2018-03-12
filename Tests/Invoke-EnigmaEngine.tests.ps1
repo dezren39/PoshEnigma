@@ -23,4 +23,21 @@ Describe 'Invoke-EnigmaEngine' {
 			 	-reflector $(Invoke-EnigmaRotor) `
 			 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
     }
+    It 'Is Commutative' {
+    	"HELLO" -eq $($("HELLO" |
+    		Invoke-EnigmaEngine `
+			    -rotors @( `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
+			 	-reflector $(Invoke-EnigmaRotor) `
+			 	-baseMap $(Invoke-EnigmaRotor)) |
+	    		Invoke-EnigmaEngine `
+				    -rotors @( `
+			    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
+				 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
+				 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
+				 	-reflector $(Invoke-EnigmaRotor) `
+				 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $true
+    }
 }

@@ -7,7 +7,7 @@ function Invoke-EnigmaEngine {
         $reflector,
         $baseMap
     )
-    return $message.ToCharArray() | % {
+    return $($message.ToCharArray() | % {
     	$char = $_
     	# $rotors | % {
     		$char = $rotors[0].Keys[$basemap.Keys.IndexOf($char)]
@@ -24,5 +24,5 @@ function Invoke-EnigmaEngine {
     	# $rotors[0]
     	# 4
     	# $basemap
-    } | out-string
+    }) -join ''
 }
