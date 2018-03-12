@@ -4,7 +4,13 @@ function Invoke-EnigmaEngine {
         [parameter(ValueFromPipeline)]
         [string]$message,
         [array]$rotors,
-        [HashMap]$reflector,
-        [string]$baseMap
+        $reflector,
+        [string]$baseMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '
     )
+    $message | % {
+    	$char = $_
+    	$rotors | % {
+
+    	}
+    }
 }
