@@ -40,4 +40,15 @@ Describe 'Invoke-EnigmaEngine' {
 				 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 				 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $true
     }
+    It 'Returns uniform characters when all input characters are uniform' {
+    	$g = "GGGGGGGGGGGG" |
+    		Invoke-EnigmaEngine `
+			    -rotors @( `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 0), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 0), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 0)) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' -position 0) `
+			 	-baseMap $(Invoke-EnigmaRotor -position 0)
+		$g.length -eq $g.split($g[0]).count - 1 | Should -be $true
+    }
 }
