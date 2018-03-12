@@ -12,4 +12,12 @@ Describe 'Invoke-EnigmaEngine' {
 					$(Invoke-EnigmaRotor)
 					) -reflector Invoke-EnigmaRotor | Should BeOfType [String]
     }
+    It 'Converts Values Entered' {
+    	"Hello" -eq $("Hello" |
+    		Invoke-EnigmaEngine -rotors @(
+    				$(Invoke-EnigmaRotor),
+					$(Invoke-EnigmaRotor),
+					$(Invoke-EnigmaRotor)
+					) -reflector Invoke-EnigmaRotor) | Should -be $false
+    }
 }
