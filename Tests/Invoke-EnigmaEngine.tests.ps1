@@ -14,10 +14,12 @@ Describe 'Invoke-EnigmaEngine' {
     }
     It 'Converts Values Entered' {
     	"Hello" -eq $("Hello" |
-    		Invoke-EnigmaEngine -rotors @(
+    		Invoke-EnigmaEngine `
+    			-rotors @(
     				$(Invoke-EnigmaRotor),
 					$(Invoke-EnigmaRotor),
-					$(Invoke-EnigmaRotor)
-					) -reflector Invoke-EnigmaRotor) | Should -be $false
+					$(Invoke-EnigmaRotor)) `
+				-reflector $(Invoke-EnigmaRotor) `
+				-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
     }
 }

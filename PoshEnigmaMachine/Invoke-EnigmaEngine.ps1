@@ -5,7 +5,17 @@ function Invoke-EnigmaEngine {
         [string]$message,
         [array]$rotors,
         $reflector,
-        [string]$baseMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '
+        $baseMap
     )
-    $message
+    return $message | % {
+    	$char = $_
+    	$rotors | % {
+    		$char = $_.keys[[array]::indexof($baseMap.keys, $char)]
+    	}
+    	$char = $reflector.keys[[array]::indexof($baseMap.keys, $char)]
+    	[array]::reverse($rotors) | % {
+    		$char = $_.keys[[array]::indexof($baseMap.keys, $char)]
+    	}
+    	$char
+    }
 }
