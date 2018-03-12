@@ -1,4 +1,4 @@
-function invoke-enigma {
+function convert-enigma {
     [CmdletBinding()]
     param (
         [String]$jar,
