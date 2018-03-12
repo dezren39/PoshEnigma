@@ -7,7 +7,11 @@ function Invoke-EnigmaEngine {
         $reflector,
         $baseMap
     )
+    $firstRunComplete = $false
     $($message.ToCharArray() | % {
+    	if ($firstRunComplete) {
+    		[array]::reverse($rotors)
+    	} else { $firstRunComplete = $true }
     	$char = $_
     	$rotors | % {
     		$char = $_.Keys[$basemap.Keys.IndexOf($char)]
