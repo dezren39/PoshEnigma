@@ -6,12 +6,10 @@ Describe 'Invoke-EnigmaEngine' {
     }
     It 'Takes Appropriate Inputs and returns a String.' {
     	"Hello" |
-    		Invoke-EnigmaEngine
-    			-rotors @(
+    		Invoke-EnigmaEngine -rotors @(
     				$(Invoke-EnigmaRotor),
 					$(Invoke-EnigmaRotor),
 					$(Invoke-EnigmaRotor)
-					)
-				-reflector Invoke-EnigmaRotor | Should BeOfType [String]
+					) -reflector Invoke-EnigmaRotor | Should BeOfType [String]
     }
 }

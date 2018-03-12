@@ -7,10 +7,5 @@ function Invoke-EnigmaEngine {
         $reflector,
         [string]$baseMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '
     )
-    $message | % {
-    	$char = $_
-    	$rotors | % {
-
-    	}
-    }
+    $message
 }
