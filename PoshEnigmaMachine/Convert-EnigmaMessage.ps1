@@ -11,10 +11,10 @@ function Convert-EnigmaMessage {
         [int]$position3 = 1,
         [String]$reflector = 'EJMZALYXVBWFCRQUONTSPIKHGD '
     )
-    $(Invoke-EnigmaEngine -message $message `
+    $($(Invoke-EnigmaEngine -message $message `
 			    -rotors @( $(Invoke-EnigmaRotor -keymap $rotor1 -position $position1), `
 					 	   $(Invoke-EnigmaRotor -keymap $rotor2 -position $position2), `
 					 	   $(Invoke-EnigmaRotor -keymap $rotor3 -position $position3)) `
 			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
-			 	-baseMap   $(Invoke-EnigmaRotor)) -replace "`r","`n"
+			 	-baseMap   $(Invoke-EnigmaRotor)) -replace "`r","`n")
 }
