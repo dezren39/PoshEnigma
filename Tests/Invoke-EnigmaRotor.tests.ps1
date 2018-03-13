@@ -8,7 +8,5 @@ Describe 'Invoke-EnigmaRotor' {
     	$x = Invoke-EnigmaRotor -position 10
     	$x.keys.length | Should -be 27
     	$x.position | Should -be 10
-    	$x.currentPosition | Should -be 0
-    	$x.counter | Should -be 0
     }
 }

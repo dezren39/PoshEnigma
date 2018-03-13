@@ -24,21 +24,21 @@ Describe 'Invoke-EnigmaEngine' {
 			 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $false
     }
     It 'Is Commutative' {
-    	"HELLO" -eq $($("HELLO" |
+    	$($("HELLO" |
     		Invoke-EnigmaEngine `
 			    -rotors @( `
-		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
-			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
-			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1)) `
 			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
 			 	-baseMap $(Invoke-EnigmaRotor)) |
-	    		Invoke-EnigmaEngine `
-				    -rotors @( `
-			    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ '), `
-				 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE '), `
-				 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ')) `
-				 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
-				 	-baseMap $(Invoke-EnigmaRotor)) | Should -be $true
+    		Invoke-EnigmaEngine `
+			    -rotors @( `
+		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10), `
+			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1), `
+			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1)) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
+			 	-baseMap $(Invoke-EnigmaRotor)) | Should -be 'HELLO'
     }
     It 'Outputs N of 1 key code with input of N of 1 key code and all positions set to 0' {
     	$g = "GGGGGGGGGGGG" |
@@ -54,12 +54,11 @@ Describe 'Invoke-EnigmaEngine' {
     It 'Outputs < N of 1 key code with input of N of 1 key code and all positions set to 5' {
     	$g = "GGGGGGGGGGGG" |
     		Invoke-EnigmaEngine `
-			    -rotors @( `
-		    	 	$(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 5), `
-			 		$(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 5), `
-			 		$(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 5)) `
-			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' -position 5) `
-			 	-baseMap $(Invoke-EnigmaRotor -position 0)
+			    -rotors @( $(Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 5), `
+					 	   $(Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 5), `
+					 	   $(Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 5)) `
+			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
+			 	-baseMap   $(Invoke-EnigmaRotor -position 0)
 		$g.length -eq $g.split($g[0]).count - 1 | Should -be $false
     }
 }

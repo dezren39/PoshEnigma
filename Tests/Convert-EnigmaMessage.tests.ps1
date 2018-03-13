@@ -8,7 +8,7 @@ Describe 'Convert-EnigmaMessage' {
         Convert-EnigmaMessage | Should BeOfType [String]
     }
     It 'Is Commutative' {
-    	'Hello' | Convert-EnigmaMessage | Convert-EnigmaMessage | Should -be 'Hello'
+    	'HELLO' | Convert-EnigmaMessage | Convert-EnigmaMessage | Should -be 'HELLO'
     }
 
 }

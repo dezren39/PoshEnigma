@@ -1,26 +1,45 @@
 function Invoke-EnigmaEngine {
     [CmdletBinding()]
     param (
-        [parameter(ValueFromPipeline)]
-        [string]$message,
-        [array]$rotors,
+        [parameter( ValueFromPipeline )]
+        [string] $message,
+        [array] $rotors,
         $reflector,
         $baseMap
     )
     $firstRunComplete = $false
-    $($message.ToCharArray() | % {
-    	if ($firstRunComplete) {
-    		[array]::reverse($rotors)
-    	} else { $firstRunComplete = $true }
+    $counter = 0
+    $( $message.ToCharArray() | % {
+    	if ( $firstRunComplete ) {
+    		[array]::reverse( $rotors )
+    	}
     	$char = $_
     	$rotors | % {
-    		$char = $_.Keys[$basemap.Keys.IndexOf($char)]
+    		if ( $firstRunComplete -and $_.Position -ne 0 ) {
+				$currentPosition = [Math]::Truncate( $counter % $_.Position )
+				if ( $basemap.Keys.IndexOf( $char ) - $currentPosition -lt 0 ) {
+					$currentPosition = ($basemap.Keys.length - $currentPosition) + $basemap.Keys.IndexOf( $char )
+				} else {
+					$currentPosition = $basemap.Keys.IndexOf( $char ) - $currentPosition
+				}
+			} else { $currentPosition = $basemap.Keys.IndexOf( $char ) }
+    		$char = $_.Keys[ $currentPosition ]
     	}
-    	$char = $reflector.Keys[$basemap.Keys.IndexOf($char)]
-    	[array]::reverse($rotors)
+    	$char = $reflector.Keys[ $basemap.Keys.IndexOf( $char ) ]
+    	[array]::reverse( $rotors )
     	$rotors | % {
-    		$char = $basemap.Keys[$_.Keys.IndexOf($char)]
+    		if ( $firstRunComplete -and $_.Position -ne 0 ) {
+				$currentPosition = [Math]::Truncate( $counter % $_.Position )
+				if ( $basemap.Keys.IndexOf( $char ) - $currentPosition -lt 0 ) {
+					$currentPosition = ($basemap.Keys.length - $currentPosition) + $basemap.Keys.IndexOf( $char )
+				} else {
+					$currentPosition = $basemap.Keys.IndexOf( $char ) - $currentPosition
+				}
+			} else { $currentPosition = $basemap.Keys.IndexOf( $char ) }
+    		$char = $_.Keys[ $currentPosition ]
     	}
+    	$counter += 1
+    	if ( !$firstRunComplete ) { $firstRunComplete = $true }
     	$char
     }) -join ''
 }
