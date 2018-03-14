@@ -15,6 +15,6 @@ function Convert-EnigmaMessage {
 			    -rotors @( $(Invoke-EnigmaRotor -keymap $rotor1 -position $position1), `
 					 	   $(Invoke-EnigmaRotor -keymap $rotor2 -position $position2), `
 					 	   $(Invoke-EnigmaRotor -keymap $rotor3 -position $position3)) `
-			 	-reflector $(Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ') `
+			 	-reflector $(Invoke-EnigmaRotor -keymap $reflector) `
 			 	-baseMap   $(Invoke-EnigmaRotor)) -replace "`r","`n")
 }
