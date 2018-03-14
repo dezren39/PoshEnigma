@@ -89,15 +89,39 @@ Describe 'Invoke-EnigmaEngine' {
 					Should -be $true
 			}
 	}
+	# It 'Is commutative (30x1024 random characters)' {
+	# 	[Object]$Random = New-Object  System.Random
+	# 	1..30 | % { $x = "$($(1..1024 | % {
+	# 					$i = $Random.Next(65,92)
+	# 					[char[]]($(if ($i -eq 91) {32} else {$i}))})-join '')"
+	# 			$($($x  | Invoke-EnigmaEngine -rotors @($( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+	# 													$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+	# 													$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )) `
+	# 											-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+	# 											-baseMap $( Invoke-EnigmaRotor )) |
+	# 					Invoke-EnigmaEngine -rotors @( $( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+	# 													$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+	# 													$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )) `
+	# 										-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+	# 										-baseMap $( Invoke-EnigmaRotor )) -eq $x | Should -be $true }
+	# }
 	It 'Is commutative (30x1024 random characters)' {
 		[Object]$Random = New-Object  System.Random
 		1..30 | 
 			ForEach-Object { 
-				$x = $null;
+				$x = $null
 				1..1024 | 
 					ForEach-Object {
 						$i = $Random.Next(65,92)
-						$x += [char[]]($(if ($i -eq 91) { 32 } else { $i }))
+						$x += [char[]](
+							$(
+								if ($i -eq 91) { 
+									32 
+								} else { 
+									$i 
+								}
+							)
+						)
 					}
 				$x = $x -join ''
 				$(
