@@ -23,7 +23,9 @@ function Invoke-EnigmaEngine {
 							$currentPosition = $basemap.Keys.IndexOf( $char ) -
 								[Math]::Truncate( $counter / $_.Position )
 							if ( $currentPosition -lt 0) {
-								$currentPosition = $basemap.Keys.length + $currentPosition
+								$currentPosition = $currentPosition - `
+										([Math]::Truncate( $currentPosition / $basemap.Keys.length ) - 1) * `
+										$basemap.Keys.length
 							}
 						} else {
 							$currentPosition = $basemap.Keys.IndexOf( $char )
