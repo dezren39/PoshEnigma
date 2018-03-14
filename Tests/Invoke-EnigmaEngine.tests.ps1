@@ -58,7 +58,59 @@ Describe 'Invoke-EnigmaEngine' {
 				-baseMap $( Invoke-EnigmaRotor )
 		) |
 			Should -be 'HELLO'
-    }
+	}
+	It 'Is Commutative With 64 "H" Characters' {
+		$(
+			$(
+				"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" |
+					Invoke-EnigmaEngine `
+					-rotors `
+						@(
+							$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+							$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+							$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+						) `
+					-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+					-baseMap $( Invoke-EnigmaRotor )
+			) |
+    			Invoke-EnigmaEngine `
+				-rotors `
+					@(
+						$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+						$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+						$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+					) `
+			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+				-baseMap $( Invoke-EnigmaRotor )
+		) |
+			Should -be 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH'
+	}
+	It 'Is Commutative With 64 "A" Characters' {
+		$(
+			$(
+				"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" |
+					Invoke-EnigmaEngine `
+					-rotors `
+						@(
+							$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+							$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+							$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+						) `
+					-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+					-baseMap $( Invoke-EnigmaRotor )
+			) |
+    			Invoke-EnigmaEngine `
+				-rotors `
+					@(
+						$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+						$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+						$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+					) `
+			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+				-baseMap $( Invoke-EnigmaRotor )
+		) |
+			Should -be 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+	}
     It 'Outputs N of 1 key code with input of N of 1 key code and all positions set to 0' {
     	$g = "GGGGGGGGGGGG" |
     		Invoke-EnigmaEngine `
