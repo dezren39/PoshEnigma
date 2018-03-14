@@ -8,14 +8,11 @@ function Invoke-EnigmaEngine {
 		$baseMap
 	)
     $firstRunComplete = $false
-    $counter = 0
+    $counter = -1
 	$(
 		$message.ToCharArray() |
 			ForEach-Object {
-				if ( $firstRunComplete ) {
-					[array]::reverse( $rotors )
-					$counter = $counter + 1
-				}
+				$counter = $counter + 1
 				$char = $_
 				$rotors |
 					ForEach-Object {
@@ -55,6 +52,7 @@ function Invoke-EnigmaEngine {
 				if ( !$firstRunComplete ) {
 					$firstRunComplete = $true
 				}
+				[array]::reverse( $rotors )
 				$char
 			}
 	) -join ''
