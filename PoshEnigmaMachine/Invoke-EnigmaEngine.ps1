@@ -1,43 +1,58 @@
 function Invoke-EnigmaEngine {
-    [CmdletBinding()]
-    param (
-        [parameter( ValueFromPipeline )]
+  [CmdletBinding()]
+  	param (
+	  [parameter( ValueFromPipeline )]
         [string] $message,
         [array] $rotors,
         $reflector,
-        $baseMap
-    )
+		$baseMap
+	)
     $firstRunComplete = $false
     $counter = 0
-    $( $message.ToCharArray() | ForEach-Object {
-    	if ( $firstRunComplete ) {
-    		[array]::reverse( $rotors )
-    		$counter = $counter + 1
-    	}
-    	$char = $_
-    	$rotors | ForEach-Object {
-    		if ( $firstRunComplete -and $_.Position -ne 0 ) {
-				$currentPosition = $basemap.Keys.IndexOf( $char ) - [Math]::Truncate( $counter / $_.Position )
-
-				if ( $currentPosition -lt 0) {
-	    			$currentPosition = $basemap.Keys.length + $currentPosition
+	$(
+		$message.ToCharArray() |
+			ForEach-Object {
+				if ( $firstRunComplete ) {
+					[array]::reverse( $rotors )
+					$counter = $counter + 1
 				}
-			} else { $currentPosition = $basemap.Keys.IndexOf( $char ) }
-    		$char = $_.Keys[ $currentPosition ]
-    	}
-    	$char = $basemap.Keys[ $reflector.Keys.IndexOf( $char ) ]
-    	[array]::reverse( $rotors )
-    	$rotors | ForEach-Object {
-			if ( $firstRunComplete -and $_.Position -ne 0 ) {
-				$currentPosition = $_.Keys.IndexOf( $char ) + [Math]::Truncate( $counter / $_.Position )
-
-				if ( $currentPosition -ge $basemap.Keys.length) {
-	    			$currentPosition = $currentPosition - ( [Math]::Truncate( $currentPosition / $basemap.Keys.length ) * $basemap.Keys.length )
+				$char = $_
+				$rotors |
+					ForEach-Object {
+						if ( $firstRunComplete -and $_.Position -ne 0 ) {
+							$currentPosition = $basemap.Keys.IndexOf( $char ) -
+								[Math]::Truncate( $counter / $_.Position )
+							if ( $currentPosition -lt 0) {
+								$currentPosition = $basemap.Keys.length + $currentPosition
+							}
+						} else {
+							$currentPosition = $basemap.Keys.IndexOf( $char )
+						}
+						$char = $_.Keys[ $currentPosition ]
+					}
+				$char = $basemap.Keys[ $reflector.Keys.IndexOf( $char ) ]
+				[array]::reverse( $rotors )
+				$rotors |
+					ForEach-Object {
+						if ( $firstRunComplete -and $_.Position -ne 0 ) {
+							$currentPosition = $_.Keys.IndexOf( $char ) +
+								[Math]::Truncate( $counter / $_.Position )
+							if ( $currentPosition -ge $basemap.Keys.length) {
+								$currentPosition = $currentPosition -
+									(
+										[Math]::Truncate( $currentPosition / $basemap.Keys.length ) *
+										$basemap.Keys.length
+									)
+							}
+						} else {
+							$currentPosition = $_.Keys.IndexOf( $char )
+						}
+						$char = $basemap.Keys[ $currentPosition ]
+					}
+				if ( !$firstRunComplete ) {
+					$firstRunComplete = $true
 				}
-			} else { $currentPosition = $_.Keys.IndexOf( $char ) }
-    		$char = $basemap.Keys[ $currentPosition ]
-	    }
-    	if ( !$firstRunComplete ) { $firstRunComplete = $true }
-    	$char
-    }) -join ''
+				$char
+			}
+	) -join ''
 }

@@ -1,9 +1,12 @@
 function Invoke-EnigmaRotor {
-    [CmdletBinding()]
+  [CmdletBinding()]
     param (
-        [parameter(ValueFromPipeline)]
-        [String]$keymap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
+      [parameter( ValueFromPipeline )]
+        [String] $keymap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
         [int] $position = 0
     )
-    @{keys = $keymap; position = $position;}
+    @{
+        keys = $keymap
+        position = $position
+    }
 }
