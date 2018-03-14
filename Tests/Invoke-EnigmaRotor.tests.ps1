@@ -1,11 +1,11 @@
 ## Ensure the function is available
 Import-Module "$PSScriptRoot\..\PoshEnigmaMachine\PoshEnigmaMachine.psm1" -Force
 Describe 'Invoke-EnigmaRotor' {
-    It 'Exists as a Function' {
+    It 'Exists as a function' {
         Test-Path Function:\Invoke-EnigmaRotor |
             Should -be $true
     }
-    It 'Returns an EnigmaRotor HashMap' {
+    It 'Returns a valid hashmap' {
     	$x = Invoke-EnigmaRotor -position 10
         $x.Keys.Length |
             Should -be 27

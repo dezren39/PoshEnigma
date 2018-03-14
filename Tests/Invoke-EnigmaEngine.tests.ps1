@@ -1,11 +1,11 @@
 ## Ensure the function is available
 Import-Module "$PSScriptRoot\..\PoshEnigmaMachine\PoshEnigmaMachine.psm1" -Force
 Describe 'Invoke-EnigmaEngine' {
-    It 'Exists as a Function' {
+    It 'Exists as a function' {
 		Test-Path Function:\Invoke-EnigmaEngine |
 			Should -be $true
     }
-    It 'Takes Appropriate Inputs and returns a String.' {
+    It 'Takes appropriate inputs and returns a [String]' {
 			"HELLO" |
 				Invoke-EnigmaEngine `
 				-rotors `
@@ -18,7 +18,7 @@ Describe 'Invoke-EnigmaEngine' {
 				-baseMap $( Invoke-EnigmaRotor ) |
 					Should BeOfType [String] `
     }
-    It 'Converts Values Entered' {
+    It 'Converts values entered' {
     	"HELLO" -eq $(
 				"HELLO" |
 					Invoke-EnigmaEngine `
@@ -33,10 +33,10 @@ Describe 'Invoke-EnigmaEngine' {
 			) |
 				Should -be $false
     }
-    It 'Is Commutative' {
+    It 'Is commutative ("HELLO WORLD")' {
     	$(
 			$(
-				"HELLO" |
+				"HELLO WORLD" |
 					Invoke-EnigmaEngine `
 					-rotors `
 						@(
@@ -57,59 +57,74 @@ Describe 'Invoke-EnigmaEngine' {
 			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
 				-baseMap $( Invoke-EnigmaRotor )
 		) |
-			Should -be 'HELLO'
+			Should -be 'HELLO WORLD'
 	}
-	It 'Is Commutative With 128 "H" Characters' {
-		$(
-			$(
-				"HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" |
-					Invoke-EnigmaEngine `
-					-rotors `
-						@(
-							$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
-							$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
-							$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
-						) `
-					-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
-					-baseMap $( Invoke-EnigmaRotor )
-			) |
-    			Invoke-EnigmaEngine `
-				-rotors `
-					@(
-						$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
-						$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
-						$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
-					) `
-			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
-				-baseMap $( Invoke-EnigmaRotor )
-		) |
-			Should -be 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH'
+	It 'Is commutative (1024 Of 1 character, full charset tested)' {
+		" $([char[]](65..90) -join '')".ToCharArray() |
+			ForEach-Object {
+				$x = "$_" * 1024
+				$(
+					$(
+						$x |
+						Invoke-EnigmaEngine `
+						-rotors `
+							@(
+								$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+								$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+								$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+							) `
+						-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+						-baseMap $( Invoke-EnigmaRotor )
+					) |
+						Invoke-EnigmaEngine `
+						-rotors `
+							@(
+								$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+								$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+								$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+							) `
+						-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+						-baseMap $( Invoke-EnigmaRotor )
+				) -eq $x |
+					Should -be $true
+			}
 	}
-	It 'Is Commutative With 128 "A" Characters' {
-		$(
-			$(
-				"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" |
-					Invoke-EnigmaEngine `
-					-rotors `
-						@(
-							$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
-							$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
-							$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
-						) `
-					-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
-					-baseMap $( Invoke-EnigmaRotor )
-			) |
-    			Invoke-EnigmaEngine `
-				-rotors `
-					@(
-						$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
-						$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
-						$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
-					) `
-			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
-				-baseMap $( Invoke-EnigmaRotor )
-		) |
-			Should -be 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+	It 'Is commutative (30x1024 random characters)' {
+		[Object]$Random = New-Object  System.Random
+		1..30 | 
+			ForEach-Object { 
+				$x = $null;
+				1..1024 | 
+					ForEach-Object {
+						$i = $Random.Next(65,92)
+						$x += [char[]]($(if ($i -eq 91) { 32 } else { $i }))
+					}
+				$x = $x -join ''
+				$(
+					$(
+						"$x" |
+						Invoke-EnigmaEngine `
+						-rotors `
+							@(
+								$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+								$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+								$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+							) `
+						-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+						-baseMap $( Invoke-EnigmaRotor )
+					) |
+						Invoke-EnigmaEngine `
+						-rotors `
+							@(
+								$( Invoke-EnigmaRotor -keymap 'EKMFLGDQVZNTOWYHXUSPAIBRCJ ' -position 10 ),
+								$( Invoke-EnigmaRotor -keymap 'AJDKSIRUXBLHWTMCQGZNPYFVOE ' -position 1 ),
+								$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 1 )
+							) `
+						-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
+						-baseMap $( Invoke-EnigmaRotor )
+				) -eq "$x" |
+					Should -be $true
+			}
 	}
     It 'Outputs N of 1 key code with input of N of 1 key code and all positions set to 0' {
     	$g = "GGGGGGGGGGGG" |
