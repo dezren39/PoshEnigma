@@ -19,13 +19,14 @@ function Invoke-EnigmaEngine {
 				$char = $_
 				$rotors |
 					ForEach-Object {
-						if ( $firstRunComplete -and $_.Position -ne 0 ) {
+						if ($_.Position -ne 0 ) {
 							$currentPosition = $basemap.Keys.IndexOf( $char ) -
 								[Math]::Truncate( $counter / $_.Position )
-							if ( $currentPosition -lt 0) {
+							if ( $currentPosition -lt -$basemap.Keys.length) {
 								$currentPosition = $currentPosition - `
-										([Math]::Truncate( $currentPosition / $basemap.Keys.length ) - 1) * `
-										$basemap.Keys.length
+										(
+											[Math]::Truncate( $currentPosition / $basemap.Keys.length) - 1
+										) * $basemap.Keys.length
 							}
 						} else {
 							$currentPosition = $basemap.Keys.IndexOf( $char )
@@ -36,7 +37,7 @@ function Invoke-EnigmaEngine {
 				[array]::reverse( $rotors )
 				$rotors |
 					ForEach-Object {
-						if ( $firstRunComplete -and $_.Position -ne 0 ) {
+						if ($_.Position -ne 0 ) {
 							$currentPosition = $_.Keys.IndexOf( $char ) +
 								[Math]::Truncate( $counter / $_.Position )
 							if ( $currentPosition -ge $basemap.Keys.length) {

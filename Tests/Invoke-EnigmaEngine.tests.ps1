@@ -135,7 +135,7 @@ Describe 'Invoke-EnigmaEngine' {
 						$( Invoke-EnigmaRotor -keymap 'BDFHJLCPRTXVZNYEIWGAKMUSQO ' -position 5 )
 					) `
 			 	-reflector $( Invoke-EnigmaRotor -keymap 'EJMZALYXVBWFCRQUONTSPIKHGD ' ) `
-			 	-baseMap $( Invoke-EnigmaRotor -position 0 )
+			 	-baseMap $( Invoke-EnigmaRotor)
 		$g.length -eq $g.split( $g[ 0 ] ).count - 1 |
 			Should -be $false
     }
