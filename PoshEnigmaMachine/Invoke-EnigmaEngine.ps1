@@ -7,7 +7,6 @@ function Invoke-EnigmaEngine {
         $reflector,
 		$baseMap
 	)
-    $firstRunComplete = $false
     $counter = -1
 	$(
 		$message.ToCharArray() |
@@ -41,18 +40,15 @@ function Invoke-EnigmaEngine {
 							if ( $currentPosition -lt 0) {
 								$currentPosition = $currentPosition - `
 										(
-											[Math]::Truncate( $currentPosition / $basemap.Keys.length) * 
+											[Math]::Truncate( $currentPosition / $basemap.Keys.length) *
 												$basemap.Keys.length
-										) 
+										)
 							}
 						} else {
 							$currentPosition = $_.Keys.IndexOf( $char )
 						}
 						$char = $basemap.Keys[ $currentPosition ]
 					}
-				if ( !$firstRunComplete ) {
-					$firstRunComplete = $true
-				}
 				[array]::reverse( $rotors )
 				$char
 			}

@@ -1,0 +1,31 @@
+PS C:\Users\dpope\OneDrive - IDEXX\enigma - current> invoke-pester
+
+Executing all tests in '.'
+
+Executing script C:\Users\dpope\OneDrive - IDEXX\enigma - current\Tests\Convert-EnigmaMessage.tests.ps1
+
+  Describing Convert-EnigmaMessage
+    [+] Exists as a function 1.14s
+    [+] Returns a [String] 781ms
+    [+] Is commutative ("HELLO WORLD") 132ms
+    [+] Is commutative (self) 1.9s
+
+Executing script C:\Users\dpope\OneDrive - IDEXX\enigma - current\Tests\Invoke-EnigmaEngine.tests.ps1
+
+  Describing Invoke-EnigmaEngine
+    [+] Exists as a function 314ms
+    [+] Takes appropriate inputs and returns a [String] 66ms
+    [+] Converts values entered 65ms
+    [+] Is commutative ("HELLO WORLD") 130ms
+    [+] Is commutative (1024 Of 1 character, full charset tested) 203.19s
+    [+] Is commutative (30x1024 random characters) 223.48s
+    [+] Outputs N of 1 key code with input of N of 1 key code and all positions set to 0 88ms
+    [+] Outputs < N of 1 key code with input of N of 1 key code and all positions set to 5 78ms
+
+Executing script C:\Users\dpope\OneDrive - IDEXX\enigma - current\Tests\Invoke-EnigmaRotor.tests.ps1
+
+  Describing Invoke-EnigmaRotor
+    [+] Exists as a function 196ms
+    [+] Returns a valid hashmap 64ms
+Tests completed in 431.64s
+Tests Passed: 14, Failed: 0, Skipped: 0, Pending: 0, Inconclusive: 0
