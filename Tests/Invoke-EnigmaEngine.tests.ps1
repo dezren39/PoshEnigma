@@ -89,6 +89,7 @@ Describe 'Invoke-EnigmaEngine' {
 					Should -be $true
 			}
 	}
+	# Example of how I might the next test for my own reading.
 	# It 'Is commutative (30x1024 random characters)' {
 	# 	[Object]$Random = New-Object  System.Random
 	# 	1..30 | % { $x = "$($(1..1024 | % {
